@@ -1,15 +1,15 @@
 package com.monfauna.model;
 
-public class UserProject {
+public class CollaboratorProject {
 
     private int projectId;
     private int userId;
     private String role;
 
-    public UserProject() {
+    public CollaboratorProject() {
     }
 
-    public UserProject(int projectId, int userId, String role) {
+    public CollaboratorProject(int projectId, int userId, String role) {
         this.projectId = projectId;
         this.userId = userId;
         this.role = role;

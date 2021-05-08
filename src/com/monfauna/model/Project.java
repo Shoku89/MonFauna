@@ -7,7 +7,8 @@ public class Project {
 
     private Integer id;
     private String name;
-    private final List<User> users = new ArrayList<>();
+    private User owner;
+    private final List<User> collaborators = new ArrayList<>();
     private final List<Animal> animals = new ArrayList<>();
 
     public Integer getId() {
@@ -22,12 +23,21 @@ public class Project {
         return name;
     }
 
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public List<User> getCollaborators() {
+        return collaborators;
     }
 
 
@@ -40,7 +50,8 @@ public class Project {
         return "Project{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", users=" + users +
+                ", owner=" + owner +
+                ", collaborators=" + collaborators +
                 ", animals=" + animals +
                 '}';
     }

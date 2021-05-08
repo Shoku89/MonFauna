@@ -118,6 +118,60 @@ public class AnimalDaoImpl implements AnimalDao {
         return null;
     }
 
+    @Override
+    public List<Animal> findAllByProject(Integer idProject) {
+
+       PreparedStatement ps = null;
+       ResultSet rs = null;
+
+       String sql = "select animal.*, " +
+               "specie.id as specieId, specie.common_name, specie.scientific_name, " +
+               "specie.created_at as specieCreatedAt, specie.updated_at as specieUpdatedAt," +
+               "specie_type.id as specieTypeId, specie_type.name as specieTypeName, " +
+               "animal_measurement.id as animalMeasurementId, animal_measurement.length, animal_measurement.width, " +
+               "animal_measurement.height, animal_measurement.weight, animal_measurement.description,  " +
+               "location.id as locationId, location.name as locationName, location.latitude, location.longitude " +
+               "from animal " +
+               "left join specie on specie.id = animal.specie_id " +
+               "left join specie_type on specie_type.id = specie.specie_type_id " +
+               "left join animal_measurement on animal_measurement.animal_id = animal.id " +
+               "left join location on location.id = animal.location_id " +
+               "where animal.project_id = ? ";
+
+       try {
+           ps = conn.prepareStatement(sql);
+           ps.setInt(1,idProject);
+           rs = ps.executeQuery();
+
+           Map<Integer, Animal> animalMap = new HashMap<>();
+
+           while (rs.next()) {
+               int animalId = rs.getInt("id");
+               Animal animal = animalMap.get(animalId);
+
+               if (animal == null) {
+                   animal = getInstanceAnimal(rs);
+                   animal.setSpecie(getInstanceSpecie(rs));
+                   animal.getSpecie().setSpecieType(getInstanceSpecieType(rs));
+                   animal.setLocation(getInstanceLocation(rs));
+               }
+
+               animal.getMeasurements().add(getInstanceAnimalMeasurement(rs));
+               animalMap.put(animalId, animal);
+           }
+
+           return  new ArrayList<>(animalMap.values());
+
+       } catch (SQLException e) {
+           System.out.println("fail");
+           e.printStackTrace();
+       } finally {
+           Database.closeResultSet(rs);
+       }
+
+        return null;
+    }
+
 
     @Override
     public Animal findById(Integer id) {
