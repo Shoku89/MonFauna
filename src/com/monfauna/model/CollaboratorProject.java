@@ -4,15 +4,14 @@ public class CollaboratorProject {
 
     private int projectId;
     private int userId;
-    private String role;
 
     public CollaboratorProject() {
     }
 
-    public CollaboratorProject(int projectId, int userId, String role) {
+    public CollaboratorProject(int projectId, int userId) {
         this.projectId = projectId;
         this.userId = userId;
-        this.role = role;
+
     }
 
     public int getProjectId() {
@@ -31,13 +30,6 @@ public class CollaboratorProject {
         this.userId = userId;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
 
 }
