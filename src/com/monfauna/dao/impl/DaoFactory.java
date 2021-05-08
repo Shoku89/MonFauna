@@ -25,7 +25,4 @@ public class DaoFactory {
     public static ProjectDaoImpl getProjectDao() {
         return  new ProjectDaoImpl(Database.getConnection());
     }
-    public  static  CollaboratorProjectDaoImpl getCollaboratorProjectDao() {
-        return new CollaboratorProjectDaoImpl(Database.getConnection());
-    }
 }

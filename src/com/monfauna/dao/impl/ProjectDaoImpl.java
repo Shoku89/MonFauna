@@ -54,6 +54,7 @@ public class ProjectDaoImpl implements ProjectDao {
     public List<Project> findAll() {
 
         List<Project> projects = new ArrayList<>();
+        AnimalDao animalDao = DaoFactory.getAnimalDao();
         ResultSet rs = null;
 
         String sql = "SELECT project.*, " +
@@ -65,7 +66,6 @@ public class ProjectDaoImpl implements ProjectDao {
             rs = conn.prepareStatement(sql).executeQuery();
 
             while (rs.next()) {
-                AnimalDao animalDao = DaoFactory.getAnimalDao();
                 Project project = getInstanceProject(rs);
                 project.setOwner(getInstanceUser(rs));
                 project.getCollaborators().addAll(findAllCollaboratorByProject(project.getId()));
@@ -124,11 +124,12 @@ public class ProjectDaoImpl implements ProjectDao {
                 collaborator.setEmail(rs.getString("email"));
                 collaborator.setCreatedAt(rs.getDate("created_at").toLocalDate().atStartOfDay());
                 collaborator.setUpdatedAt(rs.getDate("updated_at").toLocalDate().atStartOfDay());
-                collaborator.add(collaborator);
+                collaborators.add(collaborator);
 
             }
 
         } catch (SQLException e) {
+            System.out.println("fail");
             e.printStackTrace();
         } finally {
             Database.closeResultSet(rs);

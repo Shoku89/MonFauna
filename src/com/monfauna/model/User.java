@@ -97,6 +97,4 @@ public class User {
                 '}';
     }
 
-    public void add(User collaborator) {
-    }
 }
