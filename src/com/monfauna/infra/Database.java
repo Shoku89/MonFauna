@@ -30,7 +30,9 @@ public class Database {
 
     public static void closeResultSet(ResultSet rs){
         try {
-           rs.close();
+            if (rs != null) {
+                rs.close();
+            }
         } catch (SQLException throwables) {
             System.out.println("não há conexões abertas");
             throwables.printStackTrace();
@@ -38,7 +40,9 @@ public class Database {
     }
     public static void closeConnection(Connection conn){
         try {
-            conn.close();
+            if (conn != null) {
+                conn.close();
+            }
         } catch (SQLException throwables) {
             System.out.println("não há conexões abertas");
             throwables.printStackTrace();
@@ -47,7 +51,9 @@ public class Database {
 
     public static void closePreparedStatement(PreparedStatement ps){
         try{
-            ps.close();
+            if (ps != null) {
+                ps.close();
+            }
         }catch (SQLException throwables){
             System.out.println("nao ha conexoes abertas");
             throwables.printStackTrace();
